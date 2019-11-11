@@ -1,6 +1,7 @@
 package top.zdhunter.driverFriend.service;
 
 import top.zdhunter.driverFriend.bean.entity.UserEntity;
+import top.zdhunter.driverFriend.enums.EUserState;
 
 /**
  * @author zhangdehua
@@ -8,4 +9,6 @@ import top.zdhunter.driverFriend.bean.entity.UserEntity;
  */
 public interface IUserService {
     void registerUser(UserEntity entity);
+
+    void changeUserState(String userId, EUserState toBeState);
 }
