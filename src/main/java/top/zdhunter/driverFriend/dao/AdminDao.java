@@ -20,6 +20,10 @@ public interface AdminDao {
                      @Param("adminPassword") String adminPassword,
                      @Param("adminMobile") String adminMobile);
 
-    @Select("select * from admin where mobile = #{mobile} and state != 'Del' limit 1")
+    @Select("select * from admin where admin_mobile = #{mobile} and admin_state != 'Del' limit 1")
     AdminEntity selAdminByMobile(@Param("mobile") String mobile);
+
+    @Select("select * from admin where admin_mobile = #{mobile} and admin_password = #{password} and admin_state != 'Del' limit 1")
+    AdminEntity selAdminByMobileAndPsw(@Param("mobile") String mobile,
+                                       @Param("password") String password);
 }
