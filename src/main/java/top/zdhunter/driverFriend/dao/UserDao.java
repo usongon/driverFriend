@@ -3,6 +3,7 @@ package top.zdhunter.driverFriend.dao;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 import top.zdhunter.driverFriend.enums.EUserRole;
 
 /**
@@ -19,4 +20,14 @@ public interface UserDao {
                       @Param("userMobile") String userMobile,
                       @Param("userPassword") String userPassword,
                       @Param("userRole")EUserRole userRole);
+
+    /**
+     * 修改user_state  抽象接口 删除、审核、启用、停用 都可以用
+     * @param userId 要操作的用户Id
+     * @param toBeState user_state要变成什么
+     */
+    @Update("update user set user_state = #{toBeState} where user_id = #{userId} ")
+    void changeUserState(@Param("userId") String userId,
+                         @Param("toBeState") String toBeState);
+
 }

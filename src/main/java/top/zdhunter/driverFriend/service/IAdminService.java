@@ -2,7 +2,7 @@ package top.zdhunter.driverFriend.service;
 
 /**
  * @author zhangdehua
- * @date 2019-10-15
+ * @date 2019-11-11
  */
-public interface IRegisterService {
+public interface IAdminService {
 }
