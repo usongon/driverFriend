@@ -8,6 +8,7 @@ import top.zdhunter.driverFriend.bean.result.LoginResult;
  * @date 2019-11-12
  */
 public interface ILoginService {
-    LoginResult login(LoginParams params);
+    LoginResult adminLogin(LoginParams params);
+    LoginResult userLogin(LoginParams params);
     void logout(String key);
 }

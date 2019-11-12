@@ -30,4 +30,9 @@ public class UserServiceImpl implements IUserService {
     public void changeUserState(String userId, EUserState toBeState) {
         userDao.changeUserState(userId, toBeState.toString());
     }
+
+    @Override
+    public UserEntity selUserByMobile(String mobile) {
+        return userDao.selUserByMobile(mobile);
+    }
 }

@@ -1,9 +1,7 @@
 package top.zdhunter.driverFriend.dao;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+import top.zdhunter.driverFriend.bean.entity.UserEntity;
 import top.zdhunter.driverFriend.enums.EUserRole;
 
 /**
@@ -29,5 +27,8 @@ public interface UserDao {
     @Update("update user set user_state = #{toBeState} where user_id = #{userId} ")
     void changeUserState(@Param("userId") String userId,
                          @Param("toBeState") String toBeState);
+
+    @Select("select * from user where user_mobile = #{mobile} and user_state != 'Del' limit 1")
+    UserEntity selUserByMobile(@Param("mobile") String mobile);
 
 }

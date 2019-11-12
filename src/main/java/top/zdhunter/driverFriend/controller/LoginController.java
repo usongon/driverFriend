@@ -18,7 +18,13 @@ public class LoginController {
     private ILoginService loginService;
 
     @PostMapping("/admin/login")
-    public Object Login(LoginParams params){
-        return ResponseResult.success(loginService.login(params));
+    public Object adminLogin(LoginParams params){
+        return ResponseResult.success(loginService.adminLogin(params));
     }
+
+    @PostMapping("/user/login")
+    public Object userLogin(LoginParams params){
+        return ResponseResult.success(loginService.userLogin(params));
+    }
+
 }

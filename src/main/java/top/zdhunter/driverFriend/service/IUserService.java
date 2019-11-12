@@ -11,4 +11,6 @@ public interface IUserService {
     void registerUser(UserEntity entity);
 
     void changeUserState(String userId, EUserState toBeState);
+
+    UserEntity selUserByMobile(String mobile);
 }
