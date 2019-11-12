@@ -10,4 +10,5 @@ import top.zdhunter.driverFriend.bean.param.InsertAdminParams;
 public interface IAdminService {
     AdminEntity selAdminByMobile(String mobile);
     void insertAdmin(InsertAdminParams params);
+    AdminEntity selAdminByMobileAndPsw(String mobile, String password);
 }

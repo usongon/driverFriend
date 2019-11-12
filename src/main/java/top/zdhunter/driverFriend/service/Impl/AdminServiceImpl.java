@@ -30,4 +30,9 @@ public class AdminServiceImpl implements IAdminService {
         String password = PasswordUtil.encode(params.getAdminPassword());
         adminDao.insertAdmin(adminId, params.getAdminName(), password, params.getAdminMobile());
     }
+
+    @Override
+    public AdminEntity selAdminByMobileAndPsw(String mobile, String password) {
+        return adminDao.selAdminByMobileAndPsw(mobile, password);
+    }
 }

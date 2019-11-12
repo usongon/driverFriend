@@ -10,6 +10,7 @@ import lombok.Data;
 public class AdminEntity {
     String adminId;
     String adminName;
+    String adminPassword;
     String adminMobile;
     String adminState;
 }

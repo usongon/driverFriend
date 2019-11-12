@@ -18,7 +18,7 @@ spring:
     host: ${breeze.redis.host}
     port: ${breeze.redis.port}
     timeout: 60s
-    password: ${breeze.redis.password}
+    #password: ${breeze.redis.password}
     lettuce:
       pool:
         max-active: 10
