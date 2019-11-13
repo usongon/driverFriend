@@ -28,6 +28,11 @@ public interface UserDao {
     void changeUserState(@Param("userId") String userId,
                          @Param("toBeState") String toBeState);
 
+    /**
+     * 根据手机号查找
+     * @param mobile
+     * @return
+     */
     @Select("select * from user where user_mobile = #{mobile} and user_state != 'Del' limit 1")
     UserEntity selUserByMobile(@Param("mobile") String mobile);
 

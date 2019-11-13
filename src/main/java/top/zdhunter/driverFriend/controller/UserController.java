@@ -9,6 +9,7 @@ import top.zdhunter.driverFriend.common.helper.GlobalHelper;
 import top.zdhunter.driverFriend.enums.ELoginType;
 import top.zdhunter.driverFriend.enums.EResponseCode;
 import top.zdhunter.driverFriend.enums.EUserState;
+import top.zdhunter.driverFriend.framework.annotation.Authorize;
 import top.zdhunter.driverFriend.framework.exception.BusinessException;
 import top.zdhunter.driverFriend.service.IUserService;
 
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
  * @author zhangdehua
  * @date 2019-10-15
  */
+@Authorize
 @RestController
 public class UserController {
     @Resource

@@ -45,7 +45,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             if (uri.startsWith("/admin/") && !(session instanceof AdminSession)) {
                 throw new BusinessException(EResponseCode.PermissionDenied, "无权限", "");
             }
-            if (uri.startsWith("/employee/") && !(session instanceof UserSession)) {
+            if (uri.startsWith("/user/") && !(session instanceof UserSession)) {
                 throw new BusinessException(EResponseCode.PermissionDenied, "无权限", "");
             }
             sessionRedis.setExpire(token);
