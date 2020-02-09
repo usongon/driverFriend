@@ -27,4 +27,6 @@ public class AdminController {
         adminService.insertAdmin(params);
         return ResponseResult.success();
     }
+
+    //TODO 管理员审核模块
 }

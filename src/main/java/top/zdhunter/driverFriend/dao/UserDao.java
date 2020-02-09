@@ -30,10 +30,32 @@ public interface UserDao {
 
     /**
      * 根据手机号查找
-     * @param mobile
-     * @return
+     * @param mobile 手机号
+     * @return 用户实体
      */
     @Select("select * from user where user_mobile = #{mobile} and user_state != 'Del' limit 1")
     UserEntity selUserByMobile(@Param("mobile") String mobile);
+
+    @Select("select * from user where user_id = #{userId} and user_state != 'Del' limit 1")
+    UserEntity selUserById(@Param("userId") String userId);
+    /**
+     * 修改用户信息
+     * @param userId 要修改的用户id
+     * @param userName 要改成的用户名
+     * @param userMobile 要改成的手机号
+     */
+    @Update("update user set user_name = #{userName}, user_mobile = #{userMobile} where user_id = #{userId}")
+    void updateUser(@Param("userId") String userId,
+                    @Param("userName") String userName,
+                    @Param("userMobile") String userMobile);
+
+    /**
+     * 修改密码
+     * @param userId 要修改密码的用户id
+     * @param newPassword 新密码
+     */
+    @Update("update user set user_password = #{newPassword} where user_id = #{userId}")
+    void changePassword(@Param("userId") String userId,
+                        @Param("newPassword") String newPassword);
 
 }

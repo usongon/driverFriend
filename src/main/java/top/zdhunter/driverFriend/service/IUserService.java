@@ -13,4 +13,8 @@ public interface IUserService {
     void changeUserState(String userId, EUserState toBeState);
 
     UserEntity selUserByMobile(String mobile);
+
+    void updateUser(String userId, String userName, String userMobile);
+
+    void changePassword(String userId, String oldPassword, String newPassword);
 }
