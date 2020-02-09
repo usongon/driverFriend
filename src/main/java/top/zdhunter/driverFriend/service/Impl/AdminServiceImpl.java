@@ -35,4 +35,9 @@ public class AdminServiceImpl implements IAdminService {
     public AdminEntity selAdminByMobileAndPsw(String mobile, String password) {
         return adminDao.selAdminByMobileAndPsw(mobile, password);
     }
+
+    @Override
+    public AdminEntity selAdminByAdminId(String adminId) {
+        return adminDao.selAdminByAdminId(adminId);
+    }
 }

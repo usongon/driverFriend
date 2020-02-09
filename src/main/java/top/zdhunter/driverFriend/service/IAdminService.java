@@ -11,4 +11,6 @@ public interface IAdminService {
     AdminEntity selAdminByMobile(String mobile);
     void insertAdmin(InsertAdminParams params);
     AdminEntity selAdminByMobileAndPsw(String mobile, String password);
+
+    AdminEntity selAdminByAdminId(String adminId);
 }

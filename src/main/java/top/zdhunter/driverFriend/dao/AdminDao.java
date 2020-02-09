@@ -26,4 +26,7 @@ public interface AdminDao {
     @Select("select * from admin where admin_mobile = #{mobile} and admin_password = #{password} and admin_state != 'Del' limit 1")
     AdminEntity selAdminByMobileAndPsw(@Param("mobile") String mobile,
                                        @Param("password") String password);
+
+    @Select("select * from admin where admin_id = #{adminId}")
+    AdminEntity selAdminByAdminId(String adminId);
 }
