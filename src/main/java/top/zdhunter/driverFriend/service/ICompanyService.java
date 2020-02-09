@@ -4,6 +4,7 @@ import top.zdhunter.driverFriend.bean.entity.ChangeCompanyEntity;
 import top.zdhunter.driverFriend.bean.entity.CompanyEntity;
 import top.zdhunter.driverFriend.bean.param.AdminSelectCompanyParams;
 import top.zdhunter.driverFriend.bean.result.AdminCompanyResult;
+import top.zdhunter.driverFriend.enums.ECompanyState;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface ICompanyService {
 
     void changeCompany(ChangeCompanyEntity entity, String companyBoss);
 
-    void deleteCompany(String companyBoss, String companyId);
+    void changeCompanyState(String companyBoss, String companyId, ECompanyState toBeState);
 
     List<AdminCompanyResult> adminGetCompanyList(AdminSelectCompanyParams params);
 }

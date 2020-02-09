@@ -7,6 +7,7 @@ import top.zdhunter.driverFriend.bean.param.AdminSelectCompanyParams;
 import top.zdhunter.driverFriend.bean.param.InsertAdminParams;
 import top.zdhunter.driverFriend.bean.session.AdminSession;
 import top.zdhunter.driverFriend.common.helper.GlobalHelper;
+import top.zdhunter.driverFriend.enums.ECompanyState;
 import top.zdhunter.driverFriend.enums.EResponseCode;
 import top.zdhunter.driverFriend.framework.annotation.Authorize;
 import top.zdhunter.driverFriend.framework.exception.BusinessException;
@@ -56,5 +57,14 @@ public class AdminController {
         }
         return ResponseResult.success(userService.adminGetAllUser(keywords, userState));
     }
-    //TODO 管理员审核模块
+
+    @PostMapping("/admin/company/state")
+    public Object adminChangeCompanyState(String companyBoss, String companyId, ECompanyState toBeState){
+        AdminSession session = GlobalHelper.get();
+        if (adminService.selAdminByAdminId(session.getAdminId()) == null){
+            throw new BusinessException(EResponseCode.BizError, "你不是管理员， 不能使用本模块", "");
+        }
+        companyService.changeCompanyState(companyBoss, companyId, toBeState);
+        return ResponseResult.success();
+    }
 }

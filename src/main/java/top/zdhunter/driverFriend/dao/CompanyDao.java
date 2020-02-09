@@ -32,13 +32,15 @@ public interface CompanyDao {
     void changeCompany(ChangeCompanyEntity entity);
 
     /**
+     * 通用接口修改状态
      * 删除公司
      * 考虑到实际情况，未审核的公司应该也可以删除(?)
      * @param companyBoss
      */
-    @Update("update company set company_state = 'Del' where company_boss = #{companyBoss} and company_id = #{companyId}")
-    void deleteCompany(@Param("companyBoss") String companyBoss,
-                       @Param("companyId") String companyId);
+    @Update("update company set company_state = #{toBeState} where company_boss = #{companyBoss} and company_id = #{companyId}")
+    void changeCompanyState(@Param("companyBoss") String companyBoss,
+                       @Param("companyId") String companyId,
+                       @Param("toBeState") String toBeState);
 
     @Select("<script>" +
             "select c.*, b.user_name from company c, user b where c.company_state != 'Del' and c.company_boss = b.user_id " +

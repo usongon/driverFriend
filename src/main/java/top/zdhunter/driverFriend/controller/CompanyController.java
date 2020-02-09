@@ -8,8 +8,10 @@ import top.zdhunter.driverFriend.bean.entity.ChangeCompanyEntity;
 import top.zdhunter.driverFriend.bean.entity.CompanyEntity;
 import top.zdhunter.driverFriend.bean.param.AdminSelectCompanyParams;
 import top.zdhunter.driverFriend.bean.param.CompanyParams;
+import top.zdhunter.driverFriend.bean.session.AdminSession;
 import top.zdhunter.driverFriend.bean.session.UserSession;
 import top.zdhunter.driverFriend.common.helper.GlobalHelper;
+import top.zdhunter.driverFriend.enums.ECompanyState;
 import top.zdhunter.driverFriend.framework.annotation.Authorize;
 import top.zdhunter.driverFriend.service.ICompanyService;
 
@@ -44,7 +46,7 @@ public class CompanyController {
     @PostMapping("/company/delete")
     public Object deleteCompany(String companyId){
         UserSession session = GlobalHelper.get();
-        companyService.deleteCompany(session.getUserId(), companyId);
+        companyService.changeCompanyState(session.getUserId(), companyId, ECompanyState.Del);
         return ResponseResult.success();
     }
 
@@ -54,4 +56,5 @@ public class CompanyController {
         params.setCompanyBoss(session.getUserId());
         return ResponseResult.success(companyService.adminGetCompanyList(params));
     }
+
 }

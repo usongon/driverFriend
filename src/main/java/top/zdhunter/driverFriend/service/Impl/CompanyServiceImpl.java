@@ -9,6 +9,7 @@ import top.zdhunter.driverFriend.bean.result.AdminCompanyResult;
 import top.zdhunter.driverFriend.common.helper.ParamsHelper;
 import top.zdhunter.driverFriend.common.utils.UuidUtil;
 import top.zdhunter.driverFriend.dao.CompanyDao;
+import top.zdhunter.driverFriend.enums.ECompanyState;
 import top.zdhunter.driverFriend.service.ICompanyService;
 
 import javax.annotation.Resource;
@@ -35,8 +36,8 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public void deleteCompany(String companyBoss, String companyId) {
-        companyDao.deleteCompany(companyBoss, companyId);
+    public void changeCompanyState(String companyBoss, String companyId, ECompanyState toBeState) {
+        companyDao.changeCompanyState(companyBoss, companyId, toBeState.toString());
     }
 
     @Override
