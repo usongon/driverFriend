@@ -2,7 +2,10 @@ package top.zdhunter.driverFriend.dao;
 
 import org.apache.ibatis.annotations.*;
 import top.zdhunter.driverFriend.bean.entity.UserEntity;
+import top.zdhunter.driverFriend.bean.result.AdminUserResult;
 import top.zdhunter.driverFriend.enums.EUserRole;
+
+import java.util.List;
 
 /**
  * @author zhangdehua
@@ -58,4 +61,13 @@ public interface UserDao {
     void changePassword(@Param("userId") String userId,
                         @Param("newPassword") String newPassword);
 
+    @Select("<script>" +
+            "select * from user where user_state != 'Del'" +
+            "<if test = 'userState != null'> and user_state = #{userState} </if>" +
+            "<if test = 'keywords != null'> and (" +
+            "user_name like concat(concat('%',#{keywords}),'%') or " +
+            "user_mobile like concat(concat('%',#{keywords}),'%') )</if>" +
+            "</script>")
+    List<AdminUserResult> adminGetAllUser(@Param("keywords") String keywords,
+                                          @Param("userState") String userState);
 }

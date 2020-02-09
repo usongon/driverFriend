@@ -2,6 +2,8 @@ package top.zdhunter.driverFriend.service.Impl;
 
 import org.springframework.stereotype.Service;
 import top.zdhunter.driverFriend.bean.entity.UserEntity;
+import top.zdhunter.driverFriend.bean.result.AdminUserResult;
+import top.zdhunter.driverFriend.common.helper.ParamsHelper;
 import top.zdhunter.driverFriend.common.utils.PasswordUtil;
 import top.zdhunter.driverFriend.common.utils.UuidUtil;
 import top.zdhunter.driverFriend.dao.UserDao;
@@ -11,6 +13,7 @@ import top.zdhunter.driverFriend.framework.exception.BusinessException;
 import top.zdhunter.driverFriend.service.IUserService;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author zhangdehua
@@ -55,5 +58,12 @@ public class UserServiceImpl implements IUserService {
             throw new BusinessException(EResponseCode.BizError, "原密码输入错误", "");
         }
         userDao.changePassword(userId, PasswordUtil.encode(newPassword));
+    }
+
+    @Override
+    public List<AdminUserResult> adminGetAllUser(String keywords, String userState) {
+        keywords = ParamsHelper.processStrSearchParams(keywords);
+        userState = ParamsHelper.processStrSearchParams(userState);
+        return userDao.adminGetAllUser(keywords, userState);
     }
 }
