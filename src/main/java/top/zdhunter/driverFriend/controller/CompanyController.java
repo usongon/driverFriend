@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import top.zdhunter.driverFriend.bean.ResponseResult;
 import top.zdhunter.driverFriend.bean.entity.ChangeCompanyEntity;
 import top.zdhunter.driverFriend.bean.entity.CompanyEntity;
+import top.zdhunter.driverFriend.bean.param.AdminSelectCompanyParams;
 import top.zdhunter.driverFriend.bean.param.CompanyParams;
 import top.zdhunter.driverFriend.bean.session.UserSession;
 import top.zdhunter.driverFriend.common.helper.GlobalHelper;
@@ -38,5 +39,19 @@ public class CompanyController {
         UserSession session = GlobalHelper.get();
         companyService.changeCompany(entity, session.getUserId());
         return ResponseResult.success();
+    }
+
+    @PostMapping("/company/delete")
+    public Object deleteCompany(String companyId){
+        UserSession session = GlobalHelper.get();
+        companyService.deleteCompany(session.getUserId(), companyId);
+        return ResponseResult.success();
+    }
+
+    @PostMapping("/company/list")
+    public Object userGetOwnCompany(AdminSelectCompanyParams params){
+        UserSession session = GlobalHelper.get();
+        params.setCompanyBoss(session.getUserId());
+        return ResponseResult.success(companyService.adminGetCompanyList(params));
     }
 }
