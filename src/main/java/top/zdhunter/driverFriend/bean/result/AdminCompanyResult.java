@@ -1,7 +1,6 @@
 package top.zdhunter.driverFriend.bean.result;
 
 import lombok.Data;
-import top.zdhunter.driverFriend.enums.ECompanyState;
 
 /**
  * @author zhangdehua
@@ -11,6 +10,7 @@ import top.zdhunter.driverFriend.enums.ECompanyState;
 public class AdminCompanyResult {
     String companyId;
     String companyBoss;
+    String companyBossName;
     String companyName;
     String companyMobile;
     String companyCity;

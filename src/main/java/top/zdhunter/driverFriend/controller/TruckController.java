@@ -68,4 +68,13 @@ public class TruckController {
         truckService.changeTruckState(truckId, toBeState);
         return ResponseResult.success();
     }
+
+    @PostMapping("/truck/list")
+    public Object ownerGetTruckList(String truckNumber, String truckState){
+        UserSession session = GlobalHelper.get();
+        if (!userService.selUserById(session.getUserId()).getUserRole().equals(EUserRole.Driver)){
+            throw new BusinessException(EResponseCode.BizError, "您没有权限", "");
+        }
+        return ResponseResult.success(truckService.getTruckList(session.getUserId(), truckNumber, truckState));
+    }
 }

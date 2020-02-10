@@ -6,12 +6,15 @@ import top.zdhunter.driverFriend.bean.entity.TruckEntity;
 import top.zdhunter.driverFriend.bean.entity.TruckStateEntity;
 import top.zdhunter.driverFriend.bean.param.ChangeTruckParams;
 import top.zdhunter.driverFriend.bean.param.TruckParams;
+import top.zdhunter.driverFriend.bean.result.TruckResult;
+import top.zdhunter.driverFriend.common.helper.ParamsHelper;
 import top.zdhunter.driverFriend.common.utils.UuidUtil;
 import top.zdhunter.driverFriend.dao.TruckDao;
 import top.zdhunter.driverFriend.enums.ETruckState;
 import top.zdhunter.driverFriend.service.ITruckService;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author zhangdehua
@@ -48,5 +51,13 @@ public class TruckServiceImpl implements ITruckService {
     @Override
     public TruckStateEntity getTruckById(String truckId) {
         return truckDao.getTruckById(truckId);
+    }
+
+    @Override
+    public List<TruckResult> getTruckList(String truckOwner, String truckNumber, String truckState) {
+        return truckDao.getTruckList(
+                ParamsHelper.processStrSearchParams(truckOwner),
+                ParamsHelper.processStrSearchParams(truckNumber),
+                ParamsHelper.processStrSearchParams(truckState));
     }
 }

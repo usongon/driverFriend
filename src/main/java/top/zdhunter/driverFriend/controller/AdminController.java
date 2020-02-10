@@ -84,4 +84,13 @@ public class AdminController {
         truckService.changeTruckState(truckId, toBeState);
         return ResponseResult.success();
     }
+
+    @PostMapping("/admin/truck/list")
+    public Object adminGetTruckList(String truckOwner, String truckNumber, String truckState){
+        AdminSession session = GlobalHelper.get();
+        if (adminService.selAdminByAdminId(session.getAdminId()) == null){
+            throw new BusinessException(EResponseCode.BizError, "你不是管理员， 不能使用本模块", "");
+        }
+        return ResponseResult.success(truckService.getTruckList(truckOwner, truckNumber, truckState));
+    }
 }

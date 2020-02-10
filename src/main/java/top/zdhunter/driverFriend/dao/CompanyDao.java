@@ -43,7 +43,7 @@ public interface CompanyDao {
                        @Param("toBeState") String toBeState);
 
     @Select("<script>" +
-            "select c.*, b.user_name from company c, user b where c.company_state != 'Del' and c.company_boss = b.user_id " +
+            "select c.*, b.user_name as company_boss_name from company c, user b where c.company_state != 'Del' and c.company_boss = b.user_id " +
             "<if test = 'companyBoss != null'> and c.company_boss = #{companyBoss} </if>" +
             "<if test = 'companyName != null'> and c.company_name = #{companyName} </if>" +
             "<if test = 'companyMobile != null'> and c.company_mobile = #{companyMobile} </if>" +
