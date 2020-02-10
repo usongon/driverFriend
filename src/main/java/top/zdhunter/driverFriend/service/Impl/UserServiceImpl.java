@@ -45,6 +45,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public UserEntity selUserById(String userId) {
+        return userDao.selUserById(userId);
+    }
+
+    @Override
     public void updateUser(String userId, String userName, String userMobile) {
         if (userDao.selUserByMobile(userMobile) != null && !userDao.selUserByMobile(userMobile).getUserId().equals(userId)){
             throw new BusinessException(EResponseCode.BizError, "该手机号已注册", "");

@@ -39,6 +39,11 @@ public interface UserDao {
     @Select("select * from user where user_mobile = #{mobile} and user_state != 'Del' limit 1")
     UserEntity selUserByMobile(@Param("mobile") String mobile);
 
+    /**
+     * 根据用户id查找
+     * @param userId
+     * @return
+     */
     @Select("select * from user where user_id = #{userId} and user_state != 'Del' limit 1")
     UserEntity selUserById(@Param("userId") String userId);
     /**

@@ -13,6 +13,7 @@ import top.zdhunter.driverFriend.common.utils.PasswordUtil;
 import top.zdhunter.driverFriend.common.utils.UuidUtil;
 import top.zdhunter.driverFriend.enums.ELoginType;
 import top.zdhunter.driverFriend.enums.EResponseCode;
+import top.zdhunter.driverFriend.enums.EUserState;
 import top.zdhunter.driverFriend.framework.annotation.Authorize;
 import top.zdhunter.driverFriend.framework.exception.BusinessException;
 import top.zdhunter.driverFriend.redis.SessionRedis;
@@ -60,6 +61,12 @@ public class LoginServiceImpl implements ILoginService {
         }
         if (!PasswordUtil.match(params.getPassword(), user.getUserPassword())){
             throw new BusinessException(EResponseCode.BizError, "账号或密码错误", "");
+        }
+        if (user.getUserState().equals(EUserState.Del)){
+            throw new BusinessException(EResponseCode.BizError, "账号或密码错误", "");
+        }
+        if (!user.getUserState().equals(EUserState.On)){
+            throw new BusinessException(EResponseCode.BizError, "您的账号未在启用状态", "");
         }
         UserSession session = new UserSession();
         session.setUserId(user.getUserId());

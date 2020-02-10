@@ -17,6 +17,7 @@ public interface IUserService {
 
     UserEntity selUserByMobile(String mobile);
 
+    UserEntity selUserById(String userId);
     void updateUser(String userId, String userName, String userMobile);
 
     void changePassword(String userId, String oldPassword, String newPassword);

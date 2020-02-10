@@ -2,6 +2,7 @@ package top.zdhunter.driverFriend.bean.entity;
 
 import lombok.Data;
 import top.zdhunter.driverFriend.enums.EUserRole;
+import top.zdhunter.driverFriend.enums.EUserState;
 
 /**
  * @author zhangdehua
@@ -14,4 +15,5 @@ public class UserEntity {
     private String userMobile;
     private String userPassword;
     private EUserRole userRole;
+    private EUserState userState;
 }

@@ -9,10 +9,12 @@ import top.zdhunter.driverFriend.bean.session.AdminSession;
 import top.zdhunter.driverFriend.common.helper.GlobalHelper;
 import top.zdhunter.driverFriend.enums.ECompanyState;
 import top.zdhunter.driverFriend.enums.EResponseCode;
+import top.zdhunter.driverFriend.enums.ETruckState;
 import top.zdhunter.driverFriend.framework.annotation.Authorize;
 import top.zdhunter.driverFriend.framework.exception.BusinessException;
 import top.zdhunter.driverFriend.service.IAdminService;
 import top.zdhunter.driverFriend.service.ICompanyService;
+import top.zdhunter.driverFriend.service.ITruckService;
 import top.zdhunter.driverFriend.service.IUserService;
 
 import javax.annotation.Resource;
@@ -30,6 +32,8 @@ public class AdminController {
     private ICompanyService companyService;
     @Resource
     private IUserService userService;
+    @Resource
+    private ITruckService truckService;
 
     @PostMapping("/admin/insert")
     public Object insertAdmin(InsertAdminParams params){
@@ -65,6 +69,19 @@ public class AdminController {
             throw new BusinessException(EResponseCode.BizError, "你不是管理员， 不能使用本模块", "");
         }
         companyService.changeCompanyState(companyBoss, companyId, toBeState);
+        return ResponseResult.success();
+    }
+
+    @PostMapping("/admin/truck/state")
+    public Object adminChangeTruckState(String truckId, ETruckState toBeState){
+        AdminSession session = GlobalHelper.get();
+        if (adminService.selAdminByAdminId(session.getAdminId()) == null){
+            throw new BusinessException(EResponseCode.BizError, "你不是管理员， 不能使用本模块", "");
+        }
+        if (truckService.getTruckById(truckId).getTruckState().equals(ETruckState.Del)){
+            throw new BusinessException(EResponseCode.BizError, "本辆卡车已删除无法变更状态，请联系数据库管理员", "");
+        }
+        truckService.changeTruckState(truckId, toBeState);
         return ResponseResult.success();
     }
 }
