@@ -20,4 +20,6 @@ public interface ICompanyService {
     void changeCompanyState(String companyBoss, String companyId, ECompanyState toBeState);
 
     List<AdminCompanyResult> adminGetCompanyList(AdminSelectCompanyParams params);
+
+    CompanyEntity getCompanyById(String companyId);
 }

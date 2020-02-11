@@ -58,4 +58,6 @@ public interface CompanyDao {
                                                     @Param("companyAddress") String companyAddress,
                                                     @Param("companyState") String companyState);
 
+    @Select("select * from company where company_id = #{companyId}")
+    CompanyEntity getCompanyById(String companyId);
 }

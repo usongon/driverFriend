@@ -50,4 +50,9 @@ public class CompanyServiceImpl implements ICompanyService {
                 ParamsHelper.processStrSearchParams(params.getCompanyAddress()),
                 ParamsHelper.processStrSearchParams(params.getCompanyState()));
     }
+
+    @Override
+    public CompanyEntity getCompanyById(String companyId) {
+        return companyDao.getCompanyById(companyId);
+    }
 }
