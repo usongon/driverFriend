@@ -3,11 +3,14 @@ package top.zdhunter.driverFriend.service.Impl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import top.zdhunter.driverFriend.bean.entity.TaskEntity;
+import top.zdhunter.driverFriend.bean.param.ChangeTaskParam;
 import top.zdhunter.driverFriend.bean.param.TaskParams;
+import top.zdhunter.driverFriend.bean.result.TaskResult;
 import top.zdhunter.driverFriend.common.utils.DateUtil;
 import top.zdhunter.driverFriend.common.utils.UuidUtil;
 import top.zdhunter.driverFriend.dao.TaskDao;
 import top.zdhunter.driverFriend.enums.EResponseCode;
+import top.zdhunter.driverFriend.enums.ETaskState;
 import top.zdhunter.driverFriend.framework.exception.BusinessException;
 import top.zdhunter.driverFriend.service.ITaskService;
 
@@ -33,5 +36,20 @@ public class TaskServiceImpl implements ITaskService {
         entity.setTaskId(UuidUtil.randomUUID());
         entity.setTaskDeadline(DateUtil.parserLocalDateTime(params.getTaskDeadline()));
         taskDao.addTask(entity);
+    }
+
+    @Override
+    public void changeTask(ChangeTaskParam param) {
+        taskDao.changeTask(param);
+    }
+
+    @Override
+    public void changeTaskState(String taskId, ETaskState toBeState) {
+        taskDao.changeTaskState(taskId, toBeState.toString());
+    }
+
+    @Override
+    public TaskResult getTaskById(String taskId) {
+        return taskDao.getTaskById(taskId);
     }
 }
