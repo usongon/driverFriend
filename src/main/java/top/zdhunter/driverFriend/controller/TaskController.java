@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.zdhunter.driverFriend.bean.ResponseResult;
 import top.zdhunter.driverFriend.bean.param.ChangeTaskParam;
+import top.zdhunter.driverFriend.bean.param.TaskListQueryParams;
 import top.zdhunter.driverFriend.bean.param.TaskParams;
 import top.zdhunter.driverFriend.bean.result.TaskResult;
 import top.zdhunter.driverFriend.bean.session.UserSession;
@@ -70,5 +71,22 @@ public class TaskController {
         }
         taskService.changeTaskState(taskId, toBeState);
         return ResponseResult.success();
+    }
+
+    /**
+     * 获取任务详情,不设权限,所有人都可以查看任务详情   需要登录(?)
+     * @param taskId 任务Id
+     * @return
+     */
+    @PostMapping("/task/detail")
+    public Object getTaskDetailById(String taskId){
+        return ResponseResult.success(taskService.getTaskById(taskId));
+    }
+
+    @PostMapping("/task/list")
+    public Object getTaskList(TaskListQueryParams params){
+        UserSession session = GlobalHelper.get();
+        params.setIssueId(session.getUserId());
+        return ResponseResult.success(taskService.getTaskList(params));
     }
 }

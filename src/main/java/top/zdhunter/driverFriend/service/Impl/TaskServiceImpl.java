@@ -4,8 +4,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import top.zdhunter.driverFriend.bean.entity.TaskEntity;
 import top.zdhunter.driverFriend.bean.param.ChangeTaskParam;
+import top.zdhunter.driverFriend.bean.param.TaskListQueryParams;
 import top.zdhunter.driverFriend.bean.param.TaskParams;
+import top.zdhunter.driverFriend.bean.result.TaskListResult;
 import top.zdhunter.driverFriend.bean.result.TaskResult;
+import top.zdhunter.driverFriend.common.helper.ParamsHelper;
 import top.zdhunter.driverFriend.common.utils.DateUtil;
 import top.zdhunter.driverFriend.common.utils.UuidUtil;
 import top.zdhunter.driverFriend.dao.TaskDao;
@@ -16,6 +19,7 @@ import top.zdhunter.driverFriend.service.ITaskService;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author zhangdehua
@@ -51,5 +55,14 @@ public class TaskServiceImpl implements ITaskService {
     @Override
     public TaskResult getTaskById(String taskId) {
         return taskDao.getTaskById(taskId);
+    }
+
+    @Override
+    public List<TaskListResult> getTaskList(TaskListQueryParams params) {
+        params.setIssueId(ParamsHelper.processStrSearchParams(params.getIssueId()));
+        params.setCompanyId(ParamsHelper.processStrSearchParams(params.getCompanyId()));
+        params.setDestinationCity(ParamsHelper.processStrSearchParams(params.getDestinationCity()));
+        params.setTaskState(ParamsHelper.processStrSearchParams(params.getTaskState()));
+        return taskDao.getTaskList(params);
     }
 }
