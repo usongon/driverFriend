@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import top.zdhunter.driverFriend.bean.ResponseResult;
 import top.zdhunter.driverFriend.bean.param.AdminSelectCompanyParams;
 import top.zdhunter.driverFriend.bean.param.InsertAdminParams;
+import top.zdhunter.driverFriend.bean.param.TaskListQueryParams;
 import top.zdhunter.driverFriend.bean.session.AdminSession;
 import top.zdhunter.driverFriend.common.helper.GlobalHelper;
 import top.zdhunter.driverFriend.enums.ECompanyState;
@@ -12,10 +13,7 @@ import top.zdhunter.driverFriend.enums.EResponseCode;
 import top.zdhunter.driverFriend.enums.ETruckState;
 import top.zdhunter.driverFriend.framework.annotation.Authorize;
 import top.zdhunter.driverFriend.framework.exception.BusinessException;
-import top.zdhunter.driverFriend.service.IAdminService;
-import top.zdhunter.driverFriend.service.ICompanyService;
-import top.zdhunter.driverFriend.service.ITruckService;
-import top.zdhunter.driverFriend.service.IUserService;
+import top.zdhunter.driverFriend.service.*;
 
 import javax.annotation.Resource;
 
@@ -34,6 +32,8 @@ public class AdminController {
     private IUserService userService;
     @Resource
     private ITruckService truckService;
+    @Resource
+    private ITaskService taskService;
 
     @PostMapping("/admin/insert")
     public Object insertAdmin(InsertAdminParams params){
@@ -92,5 +92,14 @@ public class AdminController {
             throw new BusinessException(EResponseCode.BizError, "你不是管理员， 不能使用本模块", "");
         }
         return ResponseResult.success(truckService.getTruckList(truckOwner, truckNumber, truckState));
+    }
+
+    @PostMapping("admin/task/list")
+    public Object adminGetTaskList(TaskListQueryParams params){
+        AdminSession session = GlobalHelper.get();
+        if (adminService.selAdminByAdminId(session.getAdminId()) == null){
+            throw new BusinessException(EResponseCode.BizError, "你不是管理员， 不能使用本模块", "");
+        }
+        return ResponseResult.success(taskService.getTaskList(params));
     }
 }
