@@ -11,10 +11,12 @@ import top.zdhunter.driverFriend.bean.session.UserSession;
 import top.zdhunter.driverFriend.common.helper.GlobalHelper;
 import top.zdhunter.driverFriend.enums.EResponseCode;
 import top.zdhunter.driverFriend.enums.ETaskState;
+import top.zdhunter.driverFriend.enums.EUserRole;
 import top.zdhunter.driverFriend.framework.annotation.Authorize;
 import top.zdhunter.driverFriend.framework.exception.BusinessException;
 import top.zdhunter.driverFriend.service.ICompanyService;
 import top.zdhunter.driverFriend.service.ITaskService;
+import top.zdhunter.driverFriend.service.IUserService;
 
 import javax.annotation.Resource;
 
@@ -29,6 +31,8 @@ public class TaskController {
     private ITaskService taskService;
     @Resource
     private ICompanyService companyService;
+    @Resource
+    private IUserService userService;
 
     @PostMapping("/task/add")
     public Object addTask(TaskParams params){
@@ -86,7 +90,12 @@ public class TaskController {
     @PostMapping("/task/list")
     public Object getTaskList(TaskListQueryParams params){
         UserSession session = GlobalHelper.get();
-        params.setIssueId(session.getUserId());
+        //如果是Boss，那就只能查询自己发布的任务列表
+        if (userService.selUserById(session.getUserId()).getUserRole().equals(EUserRole.Boss)) {
+            params.setIssueId(session.getUserId());
+        }
         return ResponseResult.success(taskService.getTaskList(params));
     }
+
+
 }
