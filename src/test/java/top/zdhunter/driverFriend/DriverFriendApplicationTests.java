@@ -5,9 +5,11 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import top.zdhunter.driverFriend.bean.entity.CompanyEntity;
+import top.zdhunter.driverFriend.bean.param.MessageInsertParams;
 import top.zdhunter.driverFriend.common.utils.PasswordUtil;
 import top.zdhunter.driverFriend.common.utils.UuidUtil;
 import top.zdhunter.driverFriend.dao.CompanyDao;
+import top.zdhunter.driverFriend.service.MessageService;
 
 import javax.annotation.Resource;
 
@@ -17,6 +19,8 @@ public class DriverFriendApplicationTests {
 
 	@Resource
 	private CompanyDao companyDao;
+	@Resource
+	private MessageService messageService;
 	@Test
 	public void contextLoads() {
 		CompanyEntity entity = new CompanyEntity();
@@ -32,4 +36,14 @@ public class DriverFriendApplicationTests {
         companyDao.addCompany(entity);
 	}
 
+	@Test
+	public void insertMessageTest(){
+		MessageInsertParams params = new MessageInsertParams();
+		params.setSenderId("testSender");
+		params.setReceiverId("testReceiver");
+		params.setContent("testContent");
+		params.setTarget("testTarget");
+
+		messageService.send(params);
+	}
 }

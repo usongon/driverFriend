@@ -29,4 +29,5 @@ public interface AdminDao {
 
     @Select("select * from admin where admin_id = #{adminId}")
     AdminEntity selAdminByAdminId(String adminId);
+    
 }

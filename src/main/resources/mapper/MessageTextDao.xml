@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.zdhunter.driverFriend.dao.MessageTextDao">
+  <resultMap id="BaseResultMap" type="top.zdhunter.driverFriend.bean.entity.MessageTextEntity">
+    <!--@mbg.generated-->
+    <!--@Table message_text-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="msg_txt_id" jdbcType="VARCHAR" property="msgTxtId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="action" jdbcType="INTEGER" property="action" />
+    <result column="target" jdbcType="VARCHAR" property="target" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, msg_txt_id, content, `action`, target, create_time, update_time, is_del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from message_text
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from message_text
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.zdhunter.driverFriend.bean.entity.MessageTextEntity" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into message_text (msg_txt_id, content, `action`, 
+      target, create_time, update_time, 
+      is_del)
+    values (#{msgTxtId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{action,jdbcType=INTEGER}, 
+      #{target,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.zdhunter.driverFriend.bean.entity.MessageTextEntity" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into message_text
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msgTxtId != null">
+        msg_txt_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="action != null">
+        `action`,
+      </if>
+      <if test="target != null">
+        target,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msgTxtId != null">
+        #{msgTxtId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null">
+        #{action,jdbcType=INTEGER},
+      </if>
+      <if test="target != null">
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="top.zdhunter.driverFriend.bean.entity.MessageTextEntity">
+    <!--@mbg.generated-->
+    update message_text
+    <set>
+      <if test="msgTxtId != null">
+        msg_txt_id = #{msgTxtId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null">
+        `action` = #{action,jdbcType=INTEGER},
+      </if>
+      <if test="target != null">
+        target = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.zdhunter.driverFriend.bean.entity.MessageTextEntity">
+    <!--@mbg.generated-->
+    update message_text
+    set msg_txt_id = #{msgTxtId,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      `action` = #{action,jdbcType=INTEGER},
+      target = #{target,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+<!--auto generated by MybatisCodeHelper on 2020-03-11-->
+  <select id="selectOneByMsgTxtIdAndIsDel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from message_text
+    where msg_txt_id = #{msgTxtId,jdbcType=VARCHAR} and is_del != 1
+  </select>
+</mapper>
