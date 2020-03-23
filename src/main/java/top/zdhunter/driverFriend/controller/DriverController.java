@@ -11,10 +11,7 @@ import top.zdhunter.driverFriend.enums.ETaskState;
 import top.zdhunter.driverFriend.enums.EUserRole;
 import top.zdhunter.driverFriend.framework.annotation.Authorize;
 import top.zdhunter.driverFriend.framework.exception.BusinessException;
-import top.zdhunter.driverFriend.service.IDriverTaskService;
-import top.zdhunter.driverFriend.service.ITaskService;
-import top.zdhunter.driverFriend.service.ITruckService;
-import top.zdhunter.driverFriend.service.IUserService;
+import top.zdhunter.driverFriend.service.*;
 
 import javax.annotation.Resource;
 
@@ -33,7 +30,8 @@ public class DriverController {
     private IDriverTaskService driverTaskService;
     @Resource
     private ITruckService truckService;
-
+    @Resource
+    private IDriverOverviewService driverOverviewService;
     @PostMapping("/driver/gettask")
     @Transactional
     public Object driverGetTask(String taskId, String truckId){
@@ -78,5 +76,14 @@ public class DriverController {
         }
         taskService.changeTaskState(taskId, ETaskState.Transiting);
         return ResponseResult.success();
+    }
+
+    @PostMapping("/driver/overview")
+    public Object overview(){
+        UserSession session = GlobalHelper.get();
+        if (!userService.selUserById(session.getUserId()).getUserRole().equals(EUserRole.Driver)){
+            throw new BusinessException(EResponseCode.BizError, "只有司机可以查看本界面", "");
+        }
+        return ResponseResult.success(driverOverviewService.getDriverOverviewMsg(session.getUserId()));
     }
 }
