@@ -70,6 +70,7 @@ public class LoginServiceImpl implements ILoginService {
         }
         UserSession session = new UserSession();
         session.setUserId(user.getUserId());
+        session.setRole(user.getUserRole());
         String uuid = "user:" + UuidUtil.randomUUID();
         sessionRedis.setSession(uuid, session);
         return new LoginResult(ELoginType.User, uuid, user.getUserName(), user.getUserRole().name());

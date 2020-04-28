@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.zdhunter.driverFriend.dao.TaskDemandDao">
+  <resultMap id="BaseResultMap" type="top.zdhunter.driverFriend.bean.entity.TaskDemand">
+    <!--@mbg.generated-->
+    <!--@Table task_demand-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="demand_id" jdbcType="VARCHAR" property="demandId" />
+    <result column="issue_id" jdbcType="VARCHAR" property="issueId" />
+    <result column="issue_type" jdbcType="VARCHAR" property="issueType" />
+    <result column="demand_name" jdbcType="VARCHAR" property="demandName" />
+    <result column="demand_weight" jdbcType="INTEGER" property="demandWeight" />
+    <result column="demand_start" jdbcType="VARCHAR" property="demandStart" />
+    <result column="demand_destination" jdbcType="VARCHAR" property="demandDestination" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="demand_state" jdbcType="VARCHAR" property="demandState" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, demand_id, issue_id, issue_type, demand_name, demand_weight, demand_start, demand_destination, 
+    create_time, demand_state, update_time
+  </sql>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.zdhunter.driverFriend.bean.entity.TaskDemand" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into task_demand (demand_id, issue_id, issue_type, 
+      demand_name, demand_weight, demand_start, 
+      demand_destination, create_time, demand_state, 
+      update_time)
+    values (#{demandId,jdbcType=VARCHAR}, #{issueId,jdbcType=VARCHAR}, #{issueType,jdbcType=VARCHAR}, 
+      #{demandName,jdbcType=VARCHAR}, #{demandWeight,jdbcType=INTEGER}, #{demandStart,jdbcType=VARCHAR}, 
+      #{demandDestination,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{demandState,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.zdhunter.driverFriend.bean.entity.TaskDemand" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into task_demand
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="demandId != null">
+        demand_id,
+      </if>
+      <if test="issueId != null">
+        issue_id,
+      </if>
+      <if test="issueType != null">
+        issue_type,
+      </if>
+      <if test="demandName != null">
+        demand_name,
+      </if>
+      <if test="demandWeight != null">
+        demand_weight,
+      </if>
+      <if test="demandStart != null">
+        demand_start,
+      </if>
+      <if test="demandDestination != null">
+        demand_destination,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="demandState != null">
+        demand_state,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="demandId != null">
+        #{demandId,jdbcType=VARCHAR},
+      </if>
+      <if test="issueId != null">
+        #{issueId,jdbcType=VARCHAR},
+      </if>
+      <if test="issueType != null">
+        #{issueType,jdbcType=VARCHAR},
+      </if>
+      <if test="demandName != null">
+        #{demandName,jdbcType=VARCHAR},
+      </if>
+      <if test="demandWeight != null">
+        #{demandWeight,jdbcType=INTEGER},
+      </if>
+      <if test="demandStart != null">
+        #{demandStart,jdbcType=VARCHAR},
+      </if>
+      <if test="demandDestination != null">
+        #{demandDestination,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="demandState != null">
+        #{demandState,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByDemandIdAndDemandState">
+        <!--@mbg.generated-->
+        update task_demand
+        <set>
+            <if test="updated.id != null">
+                id = #{updated.id,jdbcType=INTEGER},
+            </if>
+            <if test="updated.demandId != null">
+                demand_id = #{updated.demandId,jdbcType=VARCHAR},
+            </if>
+            <if test="updated.issueId != null">
+                issue_id = #{updated.issueId,jdbcType=VARCHAR},
+            </if>
+            <if test="updated.issueType != null">
+                issue_type = #{updated.issueType,jdbcType=VARCHAR},
+            </if>
+            <if test="updated.demandName != null">
+                demand_name = #{updated.demandName,jdbcType=VARCHAR},
+            </if>
+            <if test="updated.demandWeight != null">
+                demand_weight = #{updated.demandWeight,jdbcType=INTEGER},
+            </if>
+            <if test="updated.demandStart != null">
+                demand_start = #{updated.demandStart,jdbcType=VARCHAR},
+            </if>
+            <if test="updated.demandDestination != null">
+                demand_destination = #{updated.demandDestination,jdbcType=VARCHAR},
+            </if>
+            <if test="updated.createTime != null">
+                create_time = #{updated.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updated.demandState != null">
+                demand_state = #{updated.demandState,jdbcType=VARCHAR},
+            </if>
+            <if test="updated.updateTime != null">
+                update_time = #{updated.updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where demand_id=#{demandId,jdbcType=VARCHAR} and demand_state=#{demandState,jdbcType=VARCHAR}
+    </update>
+  <update id="updateDemandStateByDemandId">
+        <!--@mbg.generated-->
+        update task_demand
+        set demand_state=#{updatedDemandState,jdbcType=VARCHAR}
+        where demand_id=#{demandId,jdbcType=VARCHAR}
+    </update>
+</mapper>
