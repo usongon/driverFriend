@@ -130,4 +130,21 @@
       from task_demand d, user u
       where d.demand_id = #{demandId,jdbcType=VARCHAR} and d.issue_id = u.user_id
     </select>
+  <select id="getDemandList" resultType="top.zdhunter.driverFriend.bean.result.TaskDemandListResult">
+    select * from task_demand where demand_state != 'Del'
+    <where>
+    <if test="issueId != null">
+      and issue_id = #{issueId,jdbcType=VARCHAR}
+    </if>
+    <if test="issueType != null">
+       and issue_type = #{issueType,jdbcType=VARCHAR}
+    </if>
+    <if test="demandStart != null">
+       and demand_start = #{demandStart,jdbcType=VARCHAR}
+    </if>
+    <if test="demandDestination != null">
+       and demand_destination = #{demandDestination,jdbcType=VARCHAR}
+    </if>
+    </where>
+  </select>
 </mapper>

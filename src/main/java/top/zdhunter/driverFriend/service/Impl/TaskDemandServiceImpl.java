@@ -4,11 +4,17 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import top.zdhunter.driverFriend.bean.entity.TaskDemand;
+import top.zdhunter.driverFriend.bean.param.DemandListQueryParams;
 import top.zdhunter.driverFriend.bean.param.InsertTaskDemandParams;
+import top.zdhunter.driverFriend.bean.result.TaskDemandListResult;
 import top.zdhunter.driverFriend.bean.result.TaskDemandResult;
 import top.zdhunter.driverFriend.common.utils.UuidUtil;
 import top.zdhunter.driverFriend.dao.TaskDemandDao;
+import top.zdhunter.driverFriend.enums.EDemandState;
+import top.zdhunter.driverFriend.enums.EUserRole;
 import top.zdhunter.driverFriend.service.TaskDemandService;
+
+import java.util.List;
 
 /**
  * @author zhangdehua
@@ -43,13 +49,26 @@ public class TaskDemandServiceImpl implements TaskDemandService {
     }
 
     @Override
-    public int updateDemandStateByDemandId(String updatedDemandState, String demandId) {
-        return taskDemandDao.updateDemandStateByDemandId(updatedDemandState, demandId);
+    public int updateDemandStateByDemandId(EDemandState state, String demandId) {
+        return taskDemandDao.updateDemandStateByDemandId(state.getState(), demandId);
     }
 
     @Override
     public TaskDemandResult getDemandDetail(String demandId) {
         return taskDemandDao.getDemandDetail(demandId);
+    }
+
+    @Override
+    public List<TaskDemandListResult> getDemandList(DemandListQueryParams params) {
+//        TaskDemandListResult result =  taskDemandDao.getDemandList(params.getIssueType(),
+//                params.getDemandStart(), params.getDemandDestination(), params.getIssueId());
+//        if (result.getIssueType().equals(EUserRole.Driver)){
+//            result.setDemandName("【车找货源】" + result.getDemandName());
+//        }else {
+//            result.setDemandName("【求购信息】" + result.getDemandName());
+//        }
+        return taskDemandDao.getDemandList(params.getIssueType(),
+                params.getDemandStart(), params.getDemandDestination(), params.getIssueId());
     }
 }
 
