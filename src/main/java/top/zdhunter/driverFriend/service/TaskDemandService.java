@@ -2,6 +2,7 @@ package top.zdhunter.driverFriend.service;
 
 import top.zdhunter.driverFriend.bean.entity.TaskDemand;
 import top.zdhunter.driverFriend.bean.param.InsertTaskDemandParams;
+import top.zdhunter.driverFriend.bean.result.TaskDemandResult;
 
 /**
  * @author zhangdehua
@@ -14,9 +15,10 @@ public interface TaskDemandService {
 
     int insertSelective(InsertTaskDemandParams params);
 
-    int updateByDemandIdAndDemandState(TaskDemand updated, String demandId, String demandState);
+    int updateByDemandIdAndDemandState(InsertTaskDemandParams params);
 
     int updateDemandStateByDemandId(String updatedDemandState, String demandId);
 
+    TaskDemandResult getDemandDetail(String demandId);
 }
 

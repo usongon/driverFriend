@@ -24,7 +24,7 @@ public class TaskDemandController {
     @Resource
     private TaskDemandService taskDemandService;
 
-    @PostMapping("task/demand/add")
+    @PostMapping("/task/demand/add")
     public Object addTaskDemand(InsertTaskDemandParams params){
         UserSession session = GlobalHelper.get();
         if (session.getRole().equals(EUserRole.Boss)){
@@ -33,6 +33,16 @@ public class TaskDemandController {
         params.setIssueId(session.getUserId());
         params.setIssueType(session.getRole());
         taskDemandService.insertSelective(params);
+        return ResponseResult.success();
+    }
+
+    @PostMapping("/task/demand/update")
+    public Object updateTaskDemand(InsertTaskDemandParams params){
+        UserSession session = GlobalHelper.get();
+        if (taskDemandService.getDemandDetail(params.getDemandId()).getIssueId().equals(session.getUserId())){
+            throw new BusinessException(EResponseCode.BizError, "您不能修改其他人的需求", "");
+        }
+        taskDemandService.updateByDemandIdAndDemandState(params);
         return ResponseResult.success();
     }
 }

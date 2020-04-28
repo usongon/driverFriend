@@ -1,4 +1,4 @@
-package top.zdhunter.driverFriend.bean.param;
+package top.zdhunter.driverFriend.bean.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,18 +16,29 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class InsertTaskDemandParams {
+public class TaskDemandResult {
     /**
      * 需求Id
      */
     private String demandId;
+
     /**
     * 发布人的id  司机id or 买家id
     */
     private String issueId;
 
     /**
-    * 发布人类型 driver or buyer or boss
+     * 发布人的姓名
+     */
+    private String issueName;
+
+    /**
+     * 发布人的手机号
+     */
+    private String issueMobile;
+
+    /**
+    * 发布人类型 driver or buyer
     */
     private EUserRole issueType;
 

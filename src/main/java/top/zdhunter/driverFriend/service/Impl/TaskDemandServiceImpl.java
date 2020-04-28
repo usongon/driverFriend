@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import top.zdhunter.driverFriend.bean.entity.TaskDemand;
 import top.zdhunter.driverFriend.bean.param.InsertTaskDemandParams;
+import top.zdhunter.driverFriend.bean.result.TaskDemandResult;
 import top.zdhunter.driverFriend.common.utils.UuidUtil;
 import top.zdhunter.driverFriend.dao.TaskDemandDao;
 import top.zdhunter.driverFriend.service.TaskDemandService;
@@ -35,8 +36,10 @@ public class TaskDemandServiceImpl implements TaskDemandService {
     }
 
     @Override
-    public int updateByDemandIdAndDemandState(TaskDemand updated, String demandId, String demandState) {
-        return taskDemandDao.updateByDemandIdAndDemandState(updated, demandId, demandState);
+    public int updateByDemandIdAndDemandState(InsertTaskDemandParams params) {
+        TaskDemand updated = new TaskDemand();
+        BeanUtils.copyProperties(params, updated);
+        return taskDemandDao.updateByDemandIdAndDemandState(updated, updated.getDemandId());
     }
 
     @Override
@@ -44,5 +47,9 @@ public class TaskDemandServiceImpl implements TaskDemandService {
         return taskDemandDao.updateDemandStateByDemandId(updatedDemandState, demandId);
     }
 
+    @Override
+    public TaskDemandResult getDemandDetail(String demandId) {
+        return taskDemandDao.getDemandDetail(demandId);
+    }
 }
 

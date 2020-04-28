@@ -1,6 +1,7 @@
 package top.zdhunter.driverFriend.enums;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * @author zhangdehua
@@ -8,6 +9,15 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 public enum EUserRole {
-    Driver, //司机
-    Boss, //老板
+    /**
+     * Driver 司机
+     * Boss 商家
+     * Buyer 买家
+     */
+    Driver ("Driver"),
+    Boss ("Boss"),
+    Buyer("Buyer");
+
+    @Getter
+    String role;
 }

@@ -104,18 +104,6 @@
         <!--@mbg.generated-->
         update task_demand
         <set>
-            <if test="updated.id != null">
-                id = #{updated.id,jdbcType=INTEGER},
-            </if>
-            <if test="updated.demandId != null">
-                demand_id = #{updated.demandId,jdbcType=VARCHAR},
-            </if>
-            <if test="updated.issueId != null">
-                issue_id = #{updated.issueId,jdbcType=VARCHAR},
-            </if>
-            <if test="updated.issueType != null">
-                issue_type = #{updated.issueType,jdbcType=VARCHAR},
-            </if>
             <if test="updated.demandName != null">
                 demand_name = #{updated.demandName,jdbcType=VARCHAR},
             </if>
@@ -128,22 +116,18 @@
             <if test="updated.demandDestination != null">
                 demand_destination = #{updated.demandDestination,jdbcType=VARCHAR},
             </if>
-            <if test="updated.createTime != null">
-                create_time = #{updated.createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updated.demandState != null">
-                demand_state = #{updated.demandState,jdbcType=VARCHAR},
-            </if>
-            <if test="updated.updateTime != null">
-                update_time = #{updated.updateTime,jdbcType=TIMESTAMP},
-            </if>
         </set>
-        where demand_id=#{demandId,jdbcType=VARCHAR} and demand_state=#{demandState,jdbcType=VARCHAR}
+        where demand_id=#{demandId,jdbcType=VARCHAR} and demand_state != 'Del'
     </update>
   <update id="updateDemandStateByDemandId">
         <!--@mbg.generated-->
         update task_demand
         set demand_state=#{updatedDemandState,jdbcType=VARCHAR}
-        where demand_id=#{demandId,jdbcType=VARCHAR}
+        where demand_id=#{demandId,jdbcType=VARCHAR} and demand_state != 'Del'
     </update>
+    <select id="getDemandDetail" resultType="top.zdhunter.driverFriend.bean.result.TaskDemandResult">
+      select d.*, u.user_name as issue_name, u.user_mobile as issue_mobile
+      from task_demand d, user u
+      where d.demand_id = #{demandId,jdbcType=VARCHAR} and d.issue_id = u.user_id
+    </select>
 </mapper>
