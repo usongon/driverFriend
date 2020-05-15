@@ -138,7 +138,7 @@
                 update_time = #{updated.updateTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where goods_id=#{goodsId,jdbcType=VARCHAR} and goods_state=#{goodsState,jdbcType=VARCHAR}
+        where goods_id=#{goodsId,jdbcType=VARCHAR} and goods_state != 'Del'
     </update>
   <update id="updateGoodsStateByGoodsId">
         <!--@mbg.generated-->
@@ -146,4 +146,17 @@
         set goods_state=#{updatedGoodsState,jdbcType=VARCHAR}
         where goods_id=#{goodsId,jdbcType=VARCHAR}
     </update>
+    <select id="getGoodsResultByGoodsId" resultType="top.zdhunter.driverFriend.bean.result.GoodsDetailResult">
+        select g.*, u.user_name as boss_name, u.user_mobile as boss_mobile from goods g, user u
+        where g.goods_Id = #{GoodsId,jdbcType=VARCHAR} and goods_state != 'Del' and g.boss_id = u.user_id
+    </select>
+    <select id="getGoodsList" resultType="top.zdhunter.driverFriend.bean.result.GoodsListResult">
+        select * from goods
+        <where>
+            <if test="goodsName != null"> goods_name like '%${goodsName}%'</if>
+            <if test="bossId != null"> and boss_id = #{bossId,jdbcType=VARCHAR}</if>
+            <if test="bossLocation != null"> and boss_location = #{bossLocation,jdbcType=VARCHAR}</if>
+        </where>
+        and goods_state != 'Del'
+    </select>
 </mapper>

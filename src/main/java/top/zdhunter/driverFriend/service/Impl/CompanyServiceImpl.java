@@ -6,6 +6,7 @@ import top.zdhunter.driverFriend.bean.entity.ChangeCompanyEntity;
 import top.zdhunter.driverFriend.bean.entity.CompanyEntity;
 import top.zdhunter.driverFriend.bean.param.AdminSelectCompanyParams;
 import top.zdhunter.driverFriend.bean.result.AdminCompanyResult;
+import top.zdhunter.driverFriend.bean.result.CompanyDetailResult;
 import top.zdhunter.driverFriend.common.helper.ParamsHelper;
 import top.zdhunter.driverFriend.common.utils.UuidUtil;
 import top.zdhunter.driverFriend.dao.CompanyDao;
@@ -54,5 +55,15 @@ public class CompanyServiceImpl implements ICompanyService {
     @Override
     public CompanyEntity getCompanyById(String companyId) {
         return companyDao.getCompanyById(companyId);
+    }
+
+    @Override
+    public boolean getCompanyByBossId(String bossId) {
+        return companyDao.getCompanyByBossId(bossId) != null;
+    }
+
+    @Override
+    public CompanyDetailResult getCompanyDetailByBossId(String bossId) {
+        return companyDao.getCompanyDetailByBossId(bossId);
     }
 }

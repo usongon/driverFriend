@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 /**
     * 商品表
  * @author zhangdehua
@@ -16,11 +14,11 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GoodsInsertParams {
+public class GoodsChangeParams {
     /**
-    * 发布人id
+    * 商品id
     */
-    private String bossId;
+    private String goodsId;
 
     /**
     * 商品名

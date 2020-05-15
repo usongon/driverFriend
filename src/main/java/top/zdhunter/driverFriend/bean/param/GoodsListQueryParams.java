@@ -5,22 +5,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 /**
-    * 商品表
+ *
  * @author zhangdehua
+ * @date 2020/4/29
  */
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GoodsInsertParams {
+public class GoodsListQueryParams {
     /**
-    * 发布人id
+    * 发布人的地址 市-省
     */
-    private String bossId;
+    private String bossLocation;
 
     /**
     * 商品名
@@ -28,17 +27,7 @@ public class GoodsInsertParams {
     private String goodsName;
 
     /**
-    * 商品重量
-    */
-    private Double goodsWeight;
-
-    /**
-    * 商品价格
-    */
-    private Double goodsPrice;
-
-    /**
-    * 商品描述  限制100字
-    */
-    private String goodsDesc;
+     * 老板id
+     */
+    private String bossId;
 }

@@ -1,6 +1,7 @@
 package top.zdhunter.driverFriend.controller;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.zdhunter.driverFriend.bean.ResponseResult;
@@ -36,6 +37,9 @@ public class CompanyController {
         UserSession session = GlobalHelper.get();
         if (!userService.selUserById(session.getUserId()).getUserRole().equals(EUserRole.Boss)){
             throw new BusinessException(EResponseCode.BizError, "您没有权限", "");
+        }
+        if (!companyService.getCompanyByBossId(session.getUserId())){
+            throw new BusinessException(EResponseCode.BizError, "你已经有公司了，不能再添加了", "");
         }
         CompanyEntity entity = new CompanyEntity();
         BeanUtils.copyProperties(params,entity);
@@ -74,4 +78,23 @@ public class CompanyController {
         return ResponseResult.success(companyService.adminGetCompanyList(params));
     }
 
+    /**
+     * 查询boss名下是否有公司存在的接口
+     */
+
+    @PostMapping("/company/ishave")
+    public Object isBossHaveCompany(){
+        UserSession session = GlobalHelper.get();
+        return ResponseResult.success(companyService.getCompanyByBossId(session.getUserId()));
+    }
+
+    /**
+     * 获取Boss下的公司的详情
+     */
+
+    @PostMapping("/company/detail")
+    public Object getCompanyDetail(){
+        UserSession session = GlobalHelper.get();
+        return ResponseResult.success(companyService.getCompanyDetailByBossId(session.getUserId()));
+    }
 }

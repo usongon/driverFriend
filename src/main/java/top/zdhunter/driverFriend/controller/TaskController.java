@@ -37,9 +37,7 @@ public class TaskController {
     @PostMapping("/task/add")
     public Object addTask(TaskParams params){
         UserSession session = GlobalHelper.get();
-        if (!companyService.getCompanyById(params.getCompanyId()).getCompanyBoss().equals(session.getUserId())){
-            throw new BusinessException(EResponseCode.BizError, "操作有误,该公司不属于本账号", "");
-        }
+        params.setCompanyId(companyService.getCompanyDetailByBossId(session.getUserId()).getCompanyId());
         taskService.addTask(params, session.getUserId());
         return ResponseResult.success();
     }
@@ -78,7 +76,7 @@ public class TaskController {
     }
 
     /**
-     * 获取任务详情,不设权限,所有人都可以查看任务详情   需要登录(?)
+     * 获取任务详情,不设权限,所有人都可以查看任务详情   需要登录
      * @param taskId 任务Id
      * @return
      */

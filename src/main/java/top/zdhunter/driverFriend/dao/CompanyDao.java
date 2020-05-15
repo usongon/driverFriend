@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.*;
 import top.zdhunter.driverFriend.bean.entity.ChangeCompanyEntity;
 import top.zdhunter.driverFriend.bean.entity.CompanyEntity;
 import top.zdhunter.driverFriend.bean.result.AdminCompanyResult;
+import top.zdhunter.driverFriend.bean.result.CompanyDetailResult;
 
 import java.util.List;
 
@@ -60,4 +61,10 @@ public interface CompanyDao {
 
     @Select("select * from company where company_id = #{companyId}")
     CompanyEntity getCompanyById(String companyId);
+
+    @Select("select * from company where company_boss = #{bossId} and company_state != 'Del'")
+    CompanyEntity getCompanyByBossId(String bossId);
+
+    @Select("select * from company where company_boss = #{bossId} and company_state != 'Del' limit 1")
+    CompanyDetailResult  getCompanyDetailByBossId(String bossId);
 }

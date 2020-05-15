@@ -31,12 +31,12 @@ public class GoodsDetailResult {
     /**
      * 发布人姓名
      */
-    private String boosName;
+    private String bossName;
 
     /**
      * 发布人手机号
      */
-    private String boosMobile;
+    private String bossMobile;
 
     /**
     * 发布人的地址 市-省
