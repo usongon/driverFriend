@@ -10,6 +10,7 @@ import top.zdhunter.driverFriend.bean.session.AdminSession;
 import top.zdhunter.driverFriend.common.helper.GlobalHelper;
 import top.zdhunter.driverFriend.enums.ECompanyState;
 import top.zdhunter.driverFriend.enums.EResponseCode;
+import top.zdhunter.driverFriend.enums.ETaskState;
 import top.zdhunter.driverFriend.enums.ETruckState;
 import top.zdhunter.driverFriend.framework.annotation.Authorize;
 import top.zdhunter.driverFriend.framework.exception.BusinessException;
@@ -101,5 +102,18 @@ public class AdminController {
             throw new BusinessException(EResponseCode.BizError, "你不是管理员， 不能使用本模块", "");
         }
         return ResponseResult.success(taskService.getTaskList(params));
+    }
+
+    @PostMapping("/admin/task/state")
+    public Object adminChangeTaskState(String taskId, ETaskState toBeState){
+        AdminSession session = GlobalHelper.get();
+        if (adminService.selAdminByAdminId(session.getAdminId()) == null){
+            throw new BusinessException(EResponseCode.BizError, "你不是管理员， 不能使用本模块", "");
+        }
+        if (taskService.getTaskById(taskId).getTaskState().equals(ETaskState.Del)){
+            throw new BusinessException(EResponseCode.BizError, "本任务已删除无法变更状态，请联系数据库管理员", "");
+        }
+        taskService.changeTaskState(taskId, toBeState);
+        return ResponseResult.success();
     }
 }
