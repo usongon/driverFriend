@@ -38,7 +38,7 @@ public class CompanyController {
         if (!userService.selUserById(session.getUserId()).getUserRole().equals(EUserRole.Boss)){
             throw new BusinessException(EResponseCode.BizError, "您没有权限", "");
         }
-        if (!companyService.getCompanyByBossId(session.getUserId())){
+        if (companyService.getCompanyByBossId(session.getUserId())){
             throw new BusinessException(EResponseCode.BizError, "你已经有公司了，不能再添加了", "");
         }
         CompanyEntity entity = new CompanyEntity();

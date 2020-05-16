@@ -6,6 +6,8 @@ import top.zdhunter.driverFriend.bean.ResponseResult;
 import top.zdhunter.driverFriend.bean.param.GoodsChangeParams;
 import top.zdhunter.driverFriend.bean.param.GoodsInsertParams;
 import top.zdhunter.driverFriend.bean.param.GoodsListQueryParams;
+import top.zdhunter.driverFriend.bean.param.TaskParams;
+import top.zdhunter.driverFriend.bean.result.GoodsDetailResult;
 import top.zdhunter.driverFriend.bean.session.UserSession;
 import top.zdhunter.driverFriend.common.helper.GlobalHelper;
 import top.zdhunter.driverFriend.enums.EResponseCode;
@@ -13,6 +15,7 @@ import top.zdhunter.driverFriend.framework.annotation.Authorize;
 import top.zdhunter.driverFriend.framework.exception.BusinessException;
 import top.zdhunter.driverFriend.service.GoodsService;
 import top.zdhunter.driverFriend.service.ICompanyService;
+import top.zdhunter.driverFriend.service.ITaskService;
 import top.zdhunter.driverFriend.service.IUserService;
 
 import javax.annotation.Resource;
@@ -28,6 +31,8 @@ public class GoodsController {
     private GoodsService goodsService;
     @Resource
     private ICompanyService companyService;
+    @Resource
+    private ITaskService taskService;
     /**
      * 商家添加商品
      */
@@ -87,5 +92,22 @@ public class GoodsController {
             throw new BusinessException(EResponseCode.BizError, "你只能查看自己发布的商品", "");
         }
         return ResponseResult.success(goodsService.getGoodsResultByGoodsId(goodsId));
+    }
+
+    /**
+     * 将已完结的商品信息转为任务
+     */
+
+    @PostMapping("/boss/goods/task")
+    public Object goodsTransformToTask(String goodsId, String taskDeadline, String destinationCity, String destinationAddress, String remark){
+        if (remark == null){
+            remark = "无";
+        }
+        UserSession session = GlobalHelper.get();
+        GoodsDetailResult goodsResult = goodsService.getGoodsResultByGoodsId(goodsId);
+        TaskParams taskParams = new TaskParams(companyService.getCompanyDetailByBossId(session.getUserId()).getCompanyId(),
+                goodsResult.getGoodsName(), (float)goodsResult.getGoodsWeight(), taskDeadline, destinationCity, destinationAddress, remark);
+        taskService.addTask(taskParams, session.getUserId());
+        return ResponseResult.success();
     }
 }

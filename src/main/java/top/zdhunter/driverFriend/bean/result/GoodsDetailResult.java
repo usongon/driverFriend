@@ -51,17 +51,19 @@ public class GoodsDetailResult {
     /**
     * 商品重量
     */
-    private Double goodsWeight;
+    private double goodsWeight;
 
     /**
     * 商品价格
     */
-    private Double goodsPrice;
+    private double goodsPrice;
 
     /**
     * 商品描述  限制100字
     */
     private String goodsDesc;
+
+    private String goodsState;
 
     /**
     * 发布时间

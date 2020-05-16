@@ -1,5 +1,6 @@
 package top.zdhunter.driverFriend.bean.param;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
  * @date 2020-02-11
  */
 @Data
+@AllArgsConstructor
 public class TaskParams {
     private String companyId;
     private String cargoKind;
