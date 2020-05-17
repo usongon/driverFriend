@@ -3,6 +3,7 @@ package top.zdhunter.driverFriend.service.Impl;
 import org.springframework.stereotype.Service;
 import top.zdhunter.driverFriend.bean.entity.UserEntity;
 import top.zdhunter.driverFriend.bean.result.AdminUserResult;
+import top.zdhunter.driverFriend.bean.result.UserResult;
 import top.zdhunter.driverFriend.common.helper.ParamsHelper;
 import top.zdhunter.driverFriend.common.utils.PasswordUtil;
 import top.zdhunter.driverFriend.common.utils.UuidUtil;
@@ -70,5 +71,10 @@ public class UserServiceImpl implements IUserService {
         keywords = ParamsHelper.processStrSearchParams(keywords);
         userState = ParamsHelper.processStrSearchParams(userState);
         return userDao.adminGetAllUser(keywords, userState);
+    }
+
+    @Override
+    public UserResult getUserDetail(String userId) {
+        return userDao.getUserDetail(userId);
     }
 }

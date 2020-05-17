@@ -62,9 +62,6 @@ public class TaskController {
         if (!result.getIssueId().equals(session.getUserId())){
             throw new BusinessException(EResponseCode.BizError, "操作有误,您没有权限修改本任务状态", "");
         }
-        if ((toBeState.equals(ETaskState.Canceled) || toBeState.equals(ETaskState.Del)) && !result.getTaskState().equals(ETaskState.Wait)){
-            throw new BusinessException(EResponseCode.BizError, "只有未领取的任务可以进行本操作", "");
-        }
         if (toBeState.equals(ETaskState.Got) || toBeState.equals(ETaskState.Transiting)){
             throw new BusinessException(EResponseCode.BizError, "你不能进行该操作", "");
         }

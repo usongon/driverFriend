@@ -3,6 +3,7 @@ package top.zdhunter.driverFriend.dao;
 import org.apache.ibatis.annotations.*;
 import top.zdhunter.driverFriend.bean.entity.UserEntity;
 import top.zdhunter.driverFriend.bean.result.AdminUserResult;
+import top.zdhunter.driverFriend.bean.result.UserResult;
 import top.zdhunter.driverFriend.enums.EUserRole;
 
 import java.util.List;
@@ -75,4 +76,7 @@ public interface UserDao {
             "</script>")
     List<AdminUserResult> adminGetAllUser(@Param("keywords") String keywords,
                                           @Param("userState") String userState);
+
+    @Select("select * from user where user_id=#{userId} and user_state != 'Del'")
+    UserResult getUserDetail(String userId);
 }

@@ -58,4 +58,10 @@ public class UserController {
         userService.changePassword(session.getUserId(), oldPassword, newPassword1);
         return ResponseResult.success();
     }
+
+    @PostMapping("/user/detail")
+    public Object getUserDetail(){
+        UserSession session = GlobalHelper.get();
+        return ResponseResult.success(userService.getUserDetail(session.getUserId()));
+    }
 }

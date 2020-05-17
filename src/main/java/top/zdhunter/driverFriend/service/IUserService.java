@@ -2,6 +2,7 @@ package top.zdhunter.driverFriend.service;
 
 import top.zdhunter.driverFriend.bean.entity.UserEntity;
 import top.zdhunter.driverFriend.bean.result.AdminUserResult;
+import top.zdhunter.driverFriend.bean.result.UserResult;
 import top.zdhunter.driverFriend.enums.EUserState;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface IUserService {
     void changePassword(String userId, String oldPassword, String newPassword);
 
     List<AdminUserResult> adminGetAllUser(String keywords, String userState);
+
+    UserResult getUserDetail(String userId);
 }
