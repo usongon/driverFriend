@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import top.zdhunter.driverFriend.enums.EDemandState;
 import top.zdhunter.driverFriend.enums.EUserRole;
 
 import java.util.Date;
@@ -32,14 +33,8 @@ public class TaskDemandListResult {
     */
     private String demandName;
 
-
     /**
-    * 起点城市
-    */
-    private String demandStart;
-
-    /**
-    * 重点城市
-    */
-    private String demandDestination;
+     * 需求状态
+     */
+    private String demandState;
 }

@@ -8,6 +8,7 @@ import top.zdhunter.driverFriend.bean.param.GoodsInsertParams;
 import top.zdhunter.driverFriend.bean.param.GoodsListQueryParams;
 import top.zdhunter.driverFriend.bean.param.TaskParams;
 import top.zdhunter.driverFriend.bean.result.GoodsDetailResult;
+import top.zdhunter.driverFriend.bean.session.AdminSession;
 import top.zdhunter.driverFriend.bean.session.UserSession;
 import top.zdhunter.driverFriend.common.helper.GlobalHelper;
 import top.zdhunter.driverFriend.enums.EResponseCode;
@@ -108,6 +109,26 @@ public class GoodsController {
         TaskParams taskParams = new TaskParams(companyService.getCompanyDetailByBossId(session.getUserId()).getCompanyId(),
                 goodsResult.getGoodsName(), (float)goodsResult.getGoodsWeight(), taskDeadline, destinationCity, destinationAddress, remark);
         taskService.addTask(taskParams, session.getUserId());
+        return ResponseResult.success();
+    }
+
+    /**
+     * 超管获取商品列表
+     */
+
+    @PostMapping("/admin/goods/list")
+    public Object adminGetGoodsList(GoodsListQueryParams params){
+        AdminSession session = GlobalHelper.get();
+        return ResponseResult.success(goodsService.getGoodsList(params));
+    }
+
+    /**
+     * 超管修改商品状态
+     */
+    @PostMapping("/admin/goods/state")
+    public Object adminChangeGoodsState(String goodsId, String toBeState){
+        AdminSession session = GlobalHelper.get();
+        goodsService.updateGoodsStateByGoodsId(toBeState, goodsId);
         return ResponseResult.success();
     }
 }

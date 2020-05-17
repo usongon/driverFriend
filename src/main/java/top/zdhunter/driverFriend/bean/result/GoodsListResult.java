@@ -42,4 +42,9 @@ public class GoodsListResult {
     * 商品价格
     */
     private Double goodsPrice;
+
+    /**
+     * 商品状态
+     */
+    private String goodsState;
 }

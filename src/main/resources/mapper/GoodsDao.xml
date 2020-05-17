@@ -152,11 +152,9 @@
     </select>
     <select id="getGoodsList" resultType="top.zdhunter.driverFriend.bean.result.GoodsListResult">
         select * from goods
-        <where>
-            <if test="goodsName != null"> goods_name like '%${goodsName}%'</if>
+        where goods_state != 'Del'
+            <if test="goodsName != null"> and goods_name like '%${goodsName}%'</if>
             <if test="bossId != null"> and boss_id = #{bossId,jdbcType=VARCHAR}</if>
             <if test="bossLocation != null"> and boss_location = #{bossLocation,jdbcType=VARCHAR}</if>
-        </where>
-        and goods_state != 'Del'
     </select>
 </mapper>
