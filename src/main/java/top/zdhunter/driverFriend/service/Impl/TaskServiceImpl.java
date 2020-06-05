@@ -65,4 +65,9 @@ public class TaskServiceImpl implements ITaskService {
         params.setTaskState(ParamsHelper.processStrSearchParams(params.getTaskState()));
         return taskDao.getTaskList(params);
     }
+
+    @Override
+    public List<TaskResult> getTaskListByDriver(String driverId) {
+        return taskDao.getTaskListByDriver(driverId);
+    }
 }

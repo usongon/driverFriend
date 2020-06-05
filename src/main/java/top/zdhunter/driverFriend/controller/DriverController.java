@@ -34,8 +34,9 @@ public class DriverController {
     private IDriverOverviewService driverOverviewService;
     @PostMapping("/driver/gettask")
     @Transactional
-    public Object driverGetTask(String taskId, String truckId){
+    public Object driverGetTask(String taskId){
         UserSession session = GlobalHelper.get();
+        String truckId = truckService.getTruckDetailByDriverId(session.getUserId()).getTruckId();
         if (truckService.getTruckById(truckId).getMaxLaden() < taskService.getTaskById(taskId).getCargoWeight()){
             throw new BusinessException(EResponseCode.BizError, "货物重量超过货车最大承载量", "");
         }
@@ -44,6 +45,9 @@ public class DriverController {
         }
         if (!userService.selUserById(session.getUserId()).getUserRole().equals(EUserRole.Driver)){
             throw new BusinessException(EResponseCode.BizError, "只有司机可以领取任务", "");
+        }
+        if (taskService.getTaskListByDriver(session.getUserId()) != null){
+            throw new BusinessException(EResponseCode.BizError, "你身上有正在执行的任务，请勿分心！", "");
         }
         driverTaskService.driverGetTask(taskId, session.getUserId(), truckId);
         taskService.changeTaskState(taskId, ETaskState.Got);
@@ -86,4 +90,5 @@ public class DriverController {
         }
         return ResponseResult.success(driverOverviewService.getDriverOverviewMsg(session.getUserId()));
     }
+
 }

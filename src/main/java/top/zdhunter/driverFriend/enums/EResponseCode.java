@@ -3,6 +3,10 @@ package top.zdhunter.driverFriend.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * @author hunter
+ */
+
 @AllArgsConstructor
 public enum EResponseCode {
     Ok          (0),   // 正确响应

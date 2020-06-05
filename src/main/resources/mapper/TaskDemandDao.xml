@@ -132,7 +132,6 @@
     </select>
   <select id="getDemandList" resultType="top.zdhunter.driverFriend.bean.result.TaskDemandListResult">
     select * from task_demand where demand_state != 'Del'
-    <where>
     <if test="issueId != null">
       and issue_id = #{issueId,jdbcType=VARCHAR}
     </if>
@@ -145,6 +144,5 @@
     <if test="demandDestination != null">
        and demand_destination = #{demandDestination,jdbcType=VARCHAR}
     </if>
-    </where>
   </select>
 </mapper>

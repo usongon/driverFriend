@@ -37,7 +37,7 @@ public interface TaskDao {
     TaskResult getTaskById(String taskId);
 
     @Select("<script> " +
-            "select t.*, u.user_name as issue_name, c.company_name " +
+            "select t.*, u.user_name as issue_name, c.company_name, c.company_city as start_city" +
             "from task t, user u, company c where " +
             "t.issue_id = u.user_id and t.company_id = c.company_id " +
             "and t.task_state != 'Del' " +
@@ -46,7 +46,12 @@ public interface TaskDao {
             "<if test = 'minWeight != null'> and t.cargo_weight <![CDATA[>=]]> #{minWeight} </if>" +
             "<if test = 'maxWeight != null'> and t.cargo_weight <![CDATA[<=]]> #{maxWeight} </if>" +
             "<if test = 'destinationCity != null'> and t.destination_city = #{destinationCity} </if>" +
-            "<if test = 'taskState != null'> and t.task_state = #{taskState} </if>" +
+            "<if test = 'taskState != null'> and t.task_state = #{taskState} </if> " +
+            "<if test = 'startCity != null'> and c.company_city = #{startCity} </if>" +
             "</script>")
     List<TaskListResult> getTaskList(TaskListQueryParams params);
+
+    @Select("select t.* from task t, driver_task td where td.task_id = t.task_id and td.driver_id = #{driverId} and t.task_state != 'Del' " +
+            "and t.task_state != 'Cancel' and t.task_state != 'Finished'")
+    List<TaskResult> getTaskListByDriver(String driverId);
 }

@@ -19,4 +19,5 @@ public interface ITaskService {
     void changeTaskState(String taskId, ETaskState toBeState);
     TaskResult getTaskById(String taskId);
     List<TaskListResult> getTaskList(TaskListQueryParams params);
+    List<TaskResult> getTaskListByDriver(String driverId);
 }

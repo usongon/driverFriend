@@ -17,4 +17,5 @@ public interface ITruckService {
     void changeTruckState(String truckId, ETruckState toBeState);
     TruckStateEntity getTruckById(String truckId);
     List<TruckResult> getTruckList(String truckOwner, String truckNumber, String truckState);
+    TruckResult getTruckDetailByDriverId(String driverId);
 }

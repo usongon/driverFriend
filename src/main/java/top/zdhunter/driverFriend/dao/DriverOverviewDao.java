@@ -12,14 +12,19 @@ import top.zdhunter.driverFriend.bean.result.DriverOverviewResult;
 @Mapper
 public interface DriverOverviewDao {
     /**
-     * 司机主页的一些信息
+     * 已接受任务数
      * @param driverId
      * @return
      */
-    @Select("select u.user_name as driver_name, tr.truck_number, t.task_state, dt.task_id " +
-            "from user u, truck tr, driver_task dt, task t " +
-            "where u.user_id = #{driverId}  and u.user_id = tr.truck_owner " +
-            "and dt.driver_id = u.user_id and tr.truck_id = dt.truck_id " +
-            "and dt.task_id = t.task_id")
-    DriverOverviewResult getDriverOverview(@Param("driverId") String driverId);
+    @Select("select count(*) from driver_task dt, task t where driver_id = #{driverId} " +
+            "and t.task_id = dt.task_id and t.task_state != 'Del'")
+    int sumGetTask(@Param("driverId") String driverId);
+
+    /**
+     * 已发布需求数
+     * @param driverId
+     * @return
+     */
+    @Select("select count(*) from task_demand where issue_id = #{driverId} and demand_state != 'Del'")
+    int sumIssueDemand(String driverId);
 }

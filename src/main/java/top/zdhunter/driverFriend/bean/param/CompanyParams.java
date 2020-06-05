@@ -1,6 +1,7 @@
 package top.zdhunter.driverFriend.bean.param;
 
 import lombok.Data;
+import lombok.NonNull;
 import top.zdhunter.driverFriend.enums.ECompanyState;
 
 /**
@@ -9,9 +10,9 @@ import top.zdhunter.driverFriend.enums.ECompanyState;
  */
 @Data
 public class CompanyParams {
-    String companyName;
-    String companyMobile;
-    String companyCity;
-    String companyAddress;
-    String companyLogo;
+     String companyName;
+     String companyMobile;
+     String companyCity;
+     String companyAddress;
+     String companyLogo;
 }

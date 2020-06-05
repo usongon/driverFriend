@@ -12,6 +12,7 @@ public class TaskListQueryParams {
     private String companyId;
     private float minWeight = 0;
     private float maxWeight = Float.MAX_VALUE;
+    private String startCity;
     private String destinationCity;
     private String taskState;
 }

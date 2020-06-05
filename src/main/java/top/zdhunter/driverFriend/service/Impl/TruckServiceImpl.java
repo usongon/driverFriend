@@ -60,4 +60,9 @@ public class TruckServiceImpl implements ITruckService {
                 ParamsHelper.processStrSearchParams(truckNumber),
                 ParamsHelper.processStrSearchParams(truckState));
     }
+
+    @Override
+    public TruckResult getTruckDetailByDriverId(String driverId) {
+        return truckDao.getTruckDetailByDriverId(driverId);
+    }
 }

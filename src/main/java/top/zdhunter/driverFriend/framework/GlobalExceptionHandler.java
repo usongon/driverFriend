@@ -18,8 +18,6 @@ public class GlobalExceptionHandler {
             return new ResponseResult(((BusinessException) e).getCode().getCode(),
                     ((BusinessException) e).getMsg(), ((BusinessException) e).getData());
         }
-
-        // 这里可能有点问题，会把错误信息暴露前端
         log.error(e.getMessage(), e);
         return new ResponseResult(EResponseCode.SysError.getCode(), "系统错误", "");
     }

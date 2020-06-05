@@ -68,6 +68,9 @@ public class TaskController {
         if (toBeState.equals(ETaskState.Finished) && !result.getTaskState().equals(ETaskState.Transiting)){
             throw new BusinessException(EResponseCode.BizError, "现在还不能结束该任务", "");
         }
+        if ((toBeState.equals(ETaskState.Del)||toBeState.equals(ETaskState.Canceled)) && !result.getTaskState().equals(ETaskState.Wait)){
+            throw new BusinessException(EResponseCode.BizError, "当前任务无法进行此操作", "");
+        }
         taskService.changeTaskState(taskId, toBeState);
         return ResponseResult.success();
     }
@@ -89,6 +92,11 @@ public class TaskController {
         if (userService.selUserById(session.getUserId()).getUserRole().equals(EUserRole.Boss)) {
             params.setIssueId(session.getUserId());
         }
+        return ResponseResult.success(taskService.getTaskList(params));
+    }
+    @PostMapping("/driver/task/list")
+    public Object driverGetTaskList(TaskListQueryParams params){
+        UserSession session = GlobalHelper.get();
         return ResponseResult.success(taskService.getTaskList(params));
     }
 

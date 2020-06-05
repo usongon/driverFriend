@@ -19,6 +19,7 @@ public class TaskListResult {
     private String cargoKind;            //显示
     private float cargoWeight;           //显示
     private LocalDateTime taskDeadline;  //显示
+    private String startCity;
     private String destinationCity;      //显示
     private ETaskState taskState;        //显示
 }

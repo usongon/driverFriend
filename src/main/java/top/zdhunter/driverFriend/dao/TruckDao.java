@@ -49,4 +49,6 @@ public interface TruckDao {
                                    @Param("truckNumber") String truckNumber,
                                    @Param("truckState") String truckState);
 
+    @Select("select t.*, u.user_name as truck_owner_name from truck t ,user u where t.truck_owner = #{driverId} and t.truck_state != 'Del' and t.truck_owner = u.user_id limit 1")
+    TruckResult getTruckDetailByDriverId(String driverId);
 }

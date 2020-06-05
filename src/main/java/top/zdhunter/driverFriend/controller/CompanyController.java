@@ -1,6 +1,7 @@
 package top.zdhunter.driverFriend.controller;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +35,12 @@ public class CompanyController {
     private IUserService userService;
     @PostMapping("/company/add")
     public Object addCompany(CompanyParams params){
+        if (StringUtils.isEmpty(params.getCompanyName().trim()) ||
+                StringUtils.isEmpty(params.getCompanyMobile().trim()) ||
+                        StringUtils.isEmpty(params.getCompanyAddress().trim())||
+                        StringUtils.isEmpty(params.getCompanyCity().trim())){
+            throw new BusinessException(EResponseCode.BizError, "必填数据不能为空", "");
+        }
         UserSession session = GlobalHelper.get();
         if (!userService.selUserById(session.getUserId()).getUserRole().equals(EUserRole.Boss)){
             throw new BusinessException(EResponseCode.BizError, "您没有权限", "");
