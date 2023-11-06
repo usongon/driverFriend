@@ -5,6 +5,7 @@ import com.usongon.driverFriend.bean.param.AdminSelectCompanyParams;
 import com.usongon.driverFriend.bean.param.TaskListQueryParams;
 import com.usongon.driverFriend.service.*;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.usongon.driverFriend.bean.param.InsertAdminParams;
 import com.usongon.driverFriend.bean.session.AdminSession;
@@ -36,8 +37,9 @@ public class AdminController {
     @Resource
     private ITaskService taskService;
 
+    @Authorize(login = false)
     @PostMapping("/admin/insert")
-    public Object insertAdmin(InsertAdminParams params){
+    public Object insertAdmin(@RequestBody InsertAdminParams params){
         if (adminService.selAdminByMobile(params.getAdminMobile()) != null){
             throw new BusinessException(EResponseCode.BizError, "手机号已注册", "");
         }
@@ -46,7 +48,7 @@ public class AdminController {
     }
 
     @PostMapping("/admin/company/list")
-    public Object adminGetCompanyList(AdminSelectCompanyParams params){
+    public Object adminGetCompanyList(@RequestBody AdminSelectCompanyParams params){
         AdminSession session = GlobalHelper.get();
         if (adminService.selAdminByAdminId(session.getAdminId()) == null){
             throw new BusinessException(EResponseCode.BizError, "你不是管理员， 不能使用本模块", "");
