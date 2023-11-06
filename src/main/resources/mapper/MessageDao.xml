@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.zdhunter.driverFriend.dao.MessageDao">
-  <resultMap id="BaseResultMap" type="top.zdhunter.driverFriend.bean.entity.MessageEntity">
+<mapper namespace="com.usongon.driverFriend.dao.MessageDao">
+  <resultMap id="BaseResultMap" type="com.usongon.driverFriend.bean.entity.MessageEntity">
     <!--@mbg.generated-->
     <!--@Table message-->
     <id column="id" jdbcType="BIGINT" property="id" />
@@ -14,7 +14,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_del" jdbcType="INTEGER" property="isDel" />
   </resultMap>
-  <resultMap id="messageSelEntity" type="top.zdhunter.driverFriend.bean.entity.MessageSelEntity">
+  <resultMap id="messageSelEntity" type="com.usongon.driverFriend.bean.entity.MessageSelEntity">
     <result column="msg_id" jdbcType="VARCHAR" property="msgId" />
     <result column="sender_id" jdbcType="VARCHAR" property="senderId" />
     <result column="receiver_id" jdbcType="VARCHAR" property="receiverId" />
@@ -40,7 +40,7 @@
     delete from message
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.zdhunter.driverFriend.bean.entity.MessageEntity" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.usongon.driverFriend.bean.entity.MessageEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into message (msg_id, sender_id, receiver_id, 
       msg_txt_id, `status`, create_time, 
@@ -49,7 +49,7 @@
       #{msgTxtId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.zdhunter.driverFriend.bean.entity.MessageEntity" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.usongon.driverFriend.bean.entity.MessageEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into message
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -105,7 +105,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="top.zdhunter.driverFriend.bean.entity.MessageEntity">
+  <update id="updateByPrimaryKeySelective" parameterType="com.usongon.driverFriend.bean.entity.MessageEntity">
     <!--@mbg.generated-->
     update message
     <set>
@@ -136,7 +136,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="top.zdhunter.driverFriend.bean.entity.MessageEntity">
+  <update id="updateByPrimaryKey" parameterType="com.usongon.driverFriend.bean.entity.MessageEntity">
     <!--@mbg.generated-->
     update message
     set msg_id = #{msgId,jdbcType=VARCHAR},

@@ -6,32 +6,33 @@ spring:
     active: local
 
   datasource:
-    url: ${breeze.mysql.url}
-    username: ${breeze.mysql.username}
-    password: ${breeze.mysql.password}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/usong_test?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: Vw@X!^iM
+    driver-class-name: com.mysql.jdbc.Driver
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
 
   # redis配置
-  redis:
-    host: ${breeze.redis.host}
-    port: ${breeze.redis.port}
-    timeout: 60s
-    #password: ${breeze.redis.password}
-    lettuce:
-      pool:
-        max-active: 10
-        max-wait: -1ms
-        max-idle: 10
-        min-idle: 2
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      timeout: 60s
+      #password: ${breeze.redis.password}
+      lettuce:
+        pool:
+          max-active: 10
+          max-wait: -1ms
+          max-idle: 10
+          min-idle: 2
   jackson:
     time-zone: Asia/Shanghai
     date-format: yyyy-MM-dd HH:mm:ss
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.rmny.tech.breeze.bean.entity
+  type-aliases-package: com.usongon.driverFriend.bean.entity
   configuration:
     map-underscore-to-camel-case: true
 
@@ -43,4 +44,4 @@ pagehelper:
   params: count=countSql
 #
 logging:
-  config: classpath:config/${breeze.log.config-name}
+  config: classpath:config/log4j.properties

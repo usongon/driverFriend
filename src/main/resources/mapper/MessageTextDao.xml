@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.zdhunter.driverFriend.dao.MessageTextDao">
-  <resultMap id="BaseResultMap" type="top.zdhunter.driverFriend.bean.entity.MessageTextEntity">
+<mapper namespace="com.usongon.driverFriend.dao.MessageTextDao">
+  <resultMap id="BaseResultMap" type="com.usongon.driverFriend.bean.entity.MessageTextEntity">
     <!--@mbg.generated-->
     <!--@Table message_text-->
     <id column="id" jdbcType="BIGINT" property="id" />
@@ -29,7 +29,7 @@
     delete from message_text
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.zdhunter.driverFriend.bean.entity.MessageTextEntity" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.usongon.driverFriend.bean.entity.MessageTextEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into message_text (msg_txt_id, content, `action`, 
       target, create_time, update_time, 
@@ -38,7 +38,7 @@
       #{target,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{isDel,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.zdhunter.driverFriend.bean.entity.MessageTextEntity" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.usongon.driverFriend.bean.entity.MessageTextEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into message_text
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -88,7 +88,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="top.zdhunter.driverFriend.bean.entity.MessageTextEntity">
+  <update id="updateByPrimaryKeySelective" parameterType="com.usongon.driverFriend.bean.entity.MessageTextEntity">
     <!--@mbg.generated-->
     update message_text
     <set>
@@ -116,7 +116,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="top.zdhunter.driverFriend.bean.entity.MessageTextEntity">
+  <update id="updateByPrimaryKey" parameterType="com.usongon.driverFriend.bean.entity.MessageTextEntity">
     <!--@mbg.generated-->
     update message_text
     set msg_txt_id = #{msgTxtId,jdbcType=VARCHAR},
