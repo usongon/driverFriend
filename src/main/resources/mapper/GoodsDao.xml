@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.zdhunter.driverFriend.dao.GoodsDao">
-  <resultMap id="BaseResultMap" type="top.zdhunter.driverFriend.bean.entity.Goods">
+<mapper namespace="com.usongon.driverFriend.dao.GoodsDao">
+  <resultMap id="BaseResultMap" type="com.usongon.driverFriend.bean.entity.Goods">
     <!--@mbg.generated-->
     <!--@Table goods-->
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -21,7 +21,7 @@
     id, goods_id, boss_id, boss_location, goods_name, goods_weight, goods_price, goods_desc, 
     goods_state, create_time, update_time
   </sql>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.zdhunter.driverFriend.bean.entity.Goods" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.usongon.driverFriend.bean.entity.Goods" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into goods (goods_id, boss_id, boss_location, 
       goods_name, goods_weight, goods_price, 
@@ -32,7 +32,7 @@
       #{goodsDesc,jdbcType=VARCHAR}, #{goodsState,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.zdhunter.driverFriend.bean.entity.Goods" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.usongon.driverFriend.bean.entity.Goods" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into goods
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -146,11 +146,11 @@
         set goods_state=#{updatedGoodsState,jdbcType=VARCHAR}
         where goods_id=#{goodsId,jdbcType=VARCHAR}
     </update>
-    <select id="getGoodsResultByGoodsId" resultType="top.zdhunter.driverFriend.bean.result.GoodsDetailResult">
+    <select id="getGoodsResultByGoodsId" resultType="com.usongon.driverFriend.bean.result.GoodsDetailResult">
         select g.*, u.user_name as boss_name, u.user_mobile as boss_mobile from goods g, user u
         where g.goods_Id = #{GoodsId,jdbcType=VARCHAR} and goods_state != 'Del' and g.boss_id = u.user_id
     </select>
-    <select id="getGoodsList" resultType="top.zdhunter.driverFriend.bean.result.GoodsListResult">
+    <select id="getGoodsList" resultType="com.usongon.driverFriend.bean.result.GoodsListResult">
         select * from goods
         where goods_state != 'Del'
             <if test="goodsName != null"> and goods_name like '%${goodsName}%'</if>
